@@ -1,0 +1,7 @@
+create table users (
+    users_id int identity(1,1) not null ,
+    users_name varchar (50)   NOT NULL,
+    users_password VARCHAR(20),
+	user_role varchar(50) not null,
+    PRIMARY KEY (users_id, users_name,users_password)
+);
