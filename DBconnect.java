@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 //import static javaapplication7.main.c;
 import static javaapplication7.main.ss;
@@ -69,7 +70,29 @@ public class DBconnect {
             c++;
         System.out.println("connection successful");
         System.out.println("Enter the opertation ID: \nAdd slots: 1\nview slots: 2\nAdd/del/Update users: 3\nView Parked cars: 4\nView Shift report: 5");
-        int op =entry.nextInt();
+        int op=0; boolean done; 
+        /*do{done = false;
+        try{
+            
+                    op =entry.nextInt();
+        }
+        catch (InputMismatchException e ){
+            System.out.println("Enter a number");
+            done = false;
+            entry.nextInt();
+        }
+        }while (done);*/
+        boolean invalidInput;
+do {
+    invalidInput = false;
+    try {
+         op = entry.nextInt();
+    } catch (InputMismatchException e) {
+        System.out.println("Please enter a valid integer.");  // this is more polite
+        invalidInput = true;  // This is what will get the program to loop back
+        entry.nextLine();
+    }
+} while (invalidInput);
         switch (op){
             case 1: 
             ss.execute("insert into slots (slot_status) values ('Empty')");
@@ -86,10 +109,32 @@ public class DBconnect {
                 break;     
             case 3:
                 System.out.println("Enter the role ID: \nAdmin: 1\nOperator: 2\nCostumer: 3 ");
-                int Role_id = entry.nextInt();
+                int Role_id =0;
+                do {
+    invalidInput = false;
+    try {
+             Role_id = entry.nextInt();
+    } catch (InputMismatchException e) {
+        System.out.println("Please enter a valid integer.");  // this is more polite
+        invalidInput = true;  // This is what will get the program to loop back
+        entry.nextLine();
+    }
+} while (invalidInput);
+                
                 String Role = roleC(Role_id);
                 System.out.println("Enter the role operation ID: \nAdd: 1\nDelete: 2\nUpdate: 3");
-                int role_op = entry.nextInt();
+                int role_op = 0;
+                do {
+                invalidInput = false;
+                try {
+                    role_op = entry.nextInt();
+                } catch (InputMismatchException e) {
+                System.out.println("Please enter a valid integer.");  // this is more polite
+                invalidInput = true;  // This is what will get the program to loop back
+                entry.nextLine();
+                }   
+                } while (invalidInput);
+                
                 switch (role_op){
                     case 1:
                         System.out.println("Enter The username: ");
@@ -100,7 +145,18 @@ public class DBconnect {
                         break;
                     case 2: 
                         System.out.println("Enter the id of user to be deleted");
-                        int usrId = entry.nextInt(); 
+                        int usrId=0;
+                        do {
+                        invalidInput = false;
+                        try {
+                        usrId = entry.nextInt();
+    } catch (InputMismatchException e) {
+        System.out.println("Please enter a valid integer.");  // this is more polite
+        invalidInput = true;  // This is what will get the program to loop back
+        entry.nextLine();
+    }
+} while (invalidInput);
+                        
                         /*
                          ArrayList <slotsTable> list = new ArrayList();
                 rs= ss.executeQuery("select*from slots");
